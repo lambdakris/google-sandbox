@@ -1,0 +1,8 @@
+# Ingore wip files
+wip/
+
+# Ignore generated venv files
+.venv/
+
+# Ignore generated terraform files
+.terraform/

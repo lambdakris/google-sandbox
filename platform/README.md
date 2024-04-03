@@ -1,0 +1,1 @@
+This directory contains code for the platform on which the solutions are built

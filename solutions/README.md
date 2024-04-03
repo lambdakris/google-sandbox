@@ -1,0 +1,1 @@
+This directory contains code for the solutions that showcase what is possible with Google Cloud
