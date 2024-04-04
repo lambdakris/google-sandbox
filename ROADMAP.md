@@ -6,7 +6,7 @@
 
 - [x] Create source repository
 - [x] Create cloud platform
-- [] Create iac platform
+- [x] Create iac platform
 - [] Create ci/cd platform
 - [] Create hello app
 - [] Create hello ci/cd for delivery automation
