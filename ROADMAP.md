@@ -7,7 +7,7 @@
 - [x] Create source repository
 - [x] Create cloud platform
 - [x] Create iac platform
-- [] Create ci/cd platform
+- [x] Create ci/cd platform
 - [] Create hello app
 - [] Create hello ci/cd for delivery automation
 - [] Create hello obs for observability automation
