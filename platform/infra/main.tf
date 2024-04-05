@@ -29,7 +29,10 @@ provider "google" {
 
 resource "google_project_service" "enabled" {
   for_each = toset([
-    "cloudresourcemanager"
+    "cloudresourcemanager",
+    "iam",
+    "iamcredentials",
+    "sts"
   ])
   service = "${each.value}.googleapis.com"
   disable_dependent_services = true
