@@ -17,10 +17,10 @@ jobs:
       contents: read
     steps:
       - name: Checkout Source
-        uses: actions/checkout
+        uses: 'actions/checkout'
 
       - name: Configure Google Auth
-        uses: google-github-actions/auth
+        uses: 'google-github-actions/auth'
         with:
           token_format: access_token
           service_account: ${{ secrets.SERVICE_ACCOUNT }}
