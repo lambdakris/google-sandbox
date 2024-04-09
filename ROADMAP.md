@@ -9,10 +9,11 @@
 - [x] Create iac platform
 - [x] Create ci/cd platform
 - [x] Create hello app with local setup for running, debugging, and testing
-- [] Create hello ci/cd for delivery automation
-- [] Create hello obs for observability automation
-- [] Enhance hello app with a frontend for interaction
-- [] Enhance hello app with a database for persistence
+- [] Create hello iac for automated provision
+- [] Create hello ci/cd for automated deployment
+- [] Create hello obs for logging, tracing, and metering
+- [] Enhance hello app with a frontend to provide interaction
+- [] Enhance hello app with a database to provide persistence
 
 ## M2 - Chat App
 
