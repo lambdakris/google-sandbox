@@ -8,7 +8,7 @@
 - [x] Create cloud platform
 - [x] Create iac platform
 - [x] Create ci/cd platform
-- [] Create hello app
+- [x] Create hello app with local setup for running, debugging, and testing
 - [] Create hello ci/cd for delivery automation
 - [] Create hello obs for observability automation
 - [] Enhance hello app with a frontend for interaction

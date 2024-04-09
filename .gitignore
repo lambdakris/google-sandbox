@@ -4,5 +4,8 @@ wip/
 # Ignore generated venv files
 .venv/
 
+# Ignore generated pycache files
+__pycache__/
+
 # Ignore generated terraform files
 .terraform/
