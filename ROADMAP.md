@@ -9,8 +9,8 @@
 - [x] Create iac platform
 - [x] Create ci/cd platform
 - [x] Create hello app with local setup for running, debugging, and testing
-- [] Create hello iac for automated provision
-- [] Create hello ci/cd for automated deployment
+- [x] Create hello iac for automated provision
+- [x] Create hello ci/cd for automated deployment
 - [] Create hello obs for logging, tracing, and metering
 - [] Enhance hello app with a frontend to provide interaction
 - [] Enhance hello app with a database to provide persistence
