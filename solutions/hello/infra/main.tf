@@ -27,6 +27,10 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "hello_app" {
+  default = "hello_app"
+}
+
 provider "random" {}
 
 provider "docker" {
@@ -46,7 +50,7 @@ resource "google_artifact_registry_repository" "hello_reg" {
 }
 
 resource "docker_image" "hello_app" {
-  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/${google_cloud_run_v2_service.hello_app.name}"
+  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/${var.hello_app}"
   build {
     context = "../app"
   }
@@ -58,7 +62,7 @@ resource "docker_registry_image" "hello_app" {
 
 resource "google_cloud_run_v2_service" "hello_app" {
   location = var.region
-  name = "hello-app"
+  name = var.hello_app
   template {
     containers {
       image = docker_registry_image.hello_app.name
