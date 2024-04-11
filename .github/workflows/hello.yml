@@ -27,12 +27,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
-      - name: Google Auth
+      - name: Google Cloud Auth
         uses: 'google-github-actions/auth@v2.1.2'
         with:
           token_format: 'access_token'
           service_account: '${{ secrets.SERVICE_ACCOUNT }}' 
           workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}' 
+
+      - name: Google Docker Registry Auth
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@v3
