@@ -28,7 +28,7 @@ variable "region" {
 }
 
 variable "hello_app" {
-  default = "hello_app"
+  default = "hello-app"
 }
 
 provider "random" {}
