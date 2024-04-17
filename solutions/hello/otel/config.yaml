@@ -1,0 +1,31 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: ${OTEL_COLLECTOR_ENDPOINT} # env
+exporters:
+  debug:
+    verbosity: detailed
+  googlecloud:
+    project: ${GOOGLE_CLOUD_PROJECT}
+    log:
+      default_log_name: hello-app
+processors:
+  batch:
+    timeout: 5s
+    send_batch_size: 200
+    send_batch_max_size: 200
+  memory_limiter:
+    check_interval: 1s
+    limit_percentage: 65
+    spike_limit_percentage: 20
+service:
+  pipelines:
+    logs:
+      receivers: [otlp]
+      exporters: [debug,googlecloud]
+      processors: [batch,memory_limiter]
+    traces:
+      receivers: [otlp]
+      exporters: [debug,googlecloud]
+      processors: [batch,memory_limiter]

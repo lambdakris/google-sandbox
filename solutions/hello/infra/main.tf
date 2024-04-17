@@ -27,10 +27,6 @@ variable "region" {
   default = "us-central1"
 }
 
-variable "hello_app" {
-  default = "hello-app"
-}
-
 provider "random" {}
 
 provider "docker" {
@@ -50,9 +46,16 @@ resource "google_artifact_registry_repository" "hello_reg" {
 }
 
 resource "docker_image" "hello_app" {
-  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/${var.hello_app}"
+  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/hello-app"
   build {
     context = "../app"
+  }
+}
+
+resource "docker_image" "hello_otel" {
+  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/hello-otel"
+  build {
+    context = "../otel"
   }
 }
 
@@ -60,12 +63,27 @@ resource "docker_registry_image" "hello_app" {
   name = docker_image.hello_app.name
 }
 
+resource "docker_registry_image" "hello_otel" {
+  name = docker_image.hello_otel.name
+}
+
 resource "google_cloud_run_v2_service" "hello_app" {
   location = var.region
-  name = var.hello_app
+  name = "hello-app"
   template {
     containers {
       image = docker_registry_image.hello_app.name
+      env {
+        name = "OTEL_COLLECTOR_ENDPOINT"
+        value = "localhost:4317"
+      }
+    }
+    containers {
+      image = docker_registry_image.hello_otel.name
+      env {
+        name = "OTEL_COLLECTOR_ENDPOINT"
+        value = "localhost:4317"
+      }
     }
   }
 }

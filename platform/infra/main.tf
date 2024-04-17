@@ -34,7 +34,9 @@ resource "google_project_service" "enabled" {
     "iamcredentials",
     "sts",
     "artifactregistry",
-    "run"
+    "run",
+    "logging",
+    "cloudtrace"
   ])
   service = "${each.value}.googleapis.com"
   disable_dependent_services = true

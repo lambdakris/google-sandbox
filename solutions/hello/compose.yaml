@@ -5,10 +5,16 @@ services:
     ports:
       - 8080:8080
       - 5678:5678
+    volumes:
+      - ~/${GOOGLE_APPLICATION_CREDENTIALS}:${GOOGLE_APPLICATION_CREDENTIALS}:ro
+    env_file:
+      - .env
     command: sh -c 
       "
-      pip install debugpy &&
-      python -m debugpy --listen 0.0.0.0:5678 -m uvicorn main:app --host 0.0.0.0 --port 8080
+      pip install debugpy && \
+      python \
+      -m debugpy --listen 0.0.0.0:5678 \
+      -m uvicorn main:app --host 0.0.0.0 --port 8080 --no-access-log
       "
     healthcheck:
       test: python scripts/healthcheck.py
@@ -22,3 +28,18 @@ services:
         - action: sync+restart
           path: ./app
           target: /home/app
+    depends_on:
+      otel:
+        condition: service_started
+  otel:
+    build:
+      context: ./otel
+    ports:
+      - 4317:4317
+    volumes:
+      - ~/${GOOGLE_APPLICATION_CREDENTIALS}:${GOOGLE_APPLICATION_CREDENTIALS}:ro
+    env_file:
+      - .env
+    user: '1000'
+    group_add:
+      - '1000'

@@ -9,3 +9,6 @@ __pycache__/
 
 # Ignore generated terraform files
 .terraform/
+
+# Ignore env files
+*.env
