@@ -46,14 +46,14 @@ resource "google_artifact_registry_repository" "hello_reg" {
 }
 
 resource "docker_image" "hello_app" {
-  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/hello-app"
+  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/hello-app:${formatdate("YYYYMMDDhhmm",plantimestamp())}"
   build {
     context = "../app"
   }
 }
 
 resource "docker_image" "hello_otel" {
-  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/hello-otel"
+  name = "${var.region}-docker.pkg.dev/${var.project}/${google_artifact_registry_repository.hello_reg.repository_id}/hello-otel:${formatdate("YYYYMMDDhhmm",plantimestamp())}"
   build {
     context = "../otel"
   }
