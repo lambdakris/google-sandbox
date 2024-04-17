@@ -67,10 +67,26 @@ resource "docker_registry_image" "hello_otel" {
   name = docker_image.hello_otel.name
 }
 
+resource "google_service_account" "hello_acc" {
+  account_id = "hello-acc"
+}
+
+resource "google_project_iam_member" "hello_acc_roles" {
+  for_each = toset([
+    "roles/logging.logWriter",
+    "roles/cloudtrace.agent",
+    "roles/monitoring.metricWriter"
+  ])
+  project = var.project
+  role = each.value
+  member = "serviceAccount:${google_service_account.hello_acc.email}"
+}
+
 resource "google_cloud_run_v2_service" "hello_svc" {
   location = var.region
   name = "hello-svc"
   template {
+    service_account = google_service_account.hello_acc.email
     containers {
       image = docker_registry_image.hello_app.name
       ports {
