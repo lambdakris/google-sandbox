@@ -1,5 +1,6 @@
 import os
 
+import opentelemetry.propagators.cloud_trace_propagator
 from opentelemetry.sdk.resources import Resource
 
 import logging
@@ -62,4 +63,8 @@ def get_hello(name: str = "World"):
     with tracer.start_as_current_span("get_hello") as span:
         greeting = f"Hello {name}!"
         logger.info("Saying hello", extra={ "hello.name": name, "hello.greeting": greeting })
+        
+        ctx = span.get_span_context()
+        logger.info(f"Propageted Context: {ctx}")
+        
         return greeting
