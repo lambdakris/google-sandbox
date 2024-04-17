@@ -13,6 +13,9 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 
+from opentelemetry.propagate import set_global_textmap
+from opentelemetry.propagators.cloud_trace_propagator import CloudTraceFormatPropagator
+
 from fastapi import FastAPI
 
 otel_endpoint = os.environ["OTEL_COLLECTOR_ENDPOINT"]
@@ -45,6 +48,8 @@ def setup_tracing():
 
 setup_logging()
 setup_tracing()
+
+set_global_textmap(CloudTraceFormatPropagator())
 
 logger = logging.getLogger(__name__)
 tracer = get_tracer(__name__)
