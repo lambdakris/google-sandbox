@@ -85,6 +85,9 @@ resource "google_project_iam_custom_role" "github" {
         "iam.serviceAccounts.actAs",
         "iam.serviceAccounts.get",
         "iam.serviceAccounts.list",
+        "iam.serviceAccounts.create",
+        "resourcemanager.projects.getIamPolicy",
+        "resourcemanager.projects.setIamPolicy"
     ]
 }
 
