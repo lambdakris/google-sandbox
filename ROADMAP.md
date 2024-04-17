@@ -11,7 +11,7 @@
 - [x] Create hello app with local setup for running, debugging, and testing
 - [x] Create hello iac for automated provision
 - [x] Create hello ci/cd for automated deployment
-- [] Create hello obs for logging, tracing, and metering
+- [x] Create hello obs for monitoring and diagnostics
 - [] Enhance hello app with a frontend to provide interaction
 - [] Enhance hello app with a database to provide persistence
 
