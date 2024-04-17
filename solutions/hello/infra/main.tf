@@ -67,12 +67,15 @@ resource "docker_registry_image" "hello_otel" {
   name = docker_image.hello_otel.name
 }
 
-resource "google_cloud_run_v2_service" "hello_app" {
+resource "google_cloud_run_v2_service" "hello_svc" {
   location = var.region
-  name = "hello-app"
+  name = "hello-svc"
   template {
     containers {
       image = docker_registry_image.hello_app.name
+      ports {
+        container_port = 8080
+      }
       env {
         name = "OTEL_COLLECTOR_ENDPOINT"
         value = "localhost:4317"
@@ -88,9 +91,9 @@ resource "google_cloud_run_v2_service" "hello_app" {
   }
 }
 
-resource "google_cloud_run_v2_service_iam_member" "hello_app" {
+resource "google_cloud_run_v2_service_iam_member" "hello_svc" {
   location = var.region
-  name = google_cloud_run_v2_service.hello_app.name
+  name = google_cloud_run_v2_service.hello_svc.name
   role = "roles/run.invoker"
   member = "user:maker@lambdakris.dev"
 }
